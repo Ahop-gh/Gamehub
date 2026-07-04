@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic-Tac-Toe</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#121212;
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:20px;
+}
+
+h1{
+margin-bottom:15px;
+}
+
+#status{
+margin-bottom:20px;
+font-size:20px;
+}
+
+#board{
+display:grid;
+grid-template-columns:repeat(3,100px);
+grid-template-rows:repeat(3,100px);
+gap:10px;
+}
+
+.cell{
+background:#1f1f1f;
+border-radius:15px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:40px;
+cursor:pointer;
+user-select:none;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+margin-top:20px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:12px;
+background:#4f46e5;
+color:white;
+font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>❌ Tic-Tac-Toe ⭕</h1>
+
+<div id="status">
+Player X's Turn
+</div>
+
+<div id="board">
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+<div class="cell"></div>
+</div>
+
+<div class="buttons">
+<button onclick="restartGame()">🔄 Restart</button>
+<button onclick="location.href='../index.html'">⬅ Back</button>
+</div>
+
+<script>

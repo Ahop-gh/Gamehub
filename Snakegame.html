@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snake - GameHub</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#121212;
+color:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:20px;
+}
+
+h1{
+margin-bottom:10px;
+}
+
+#score{
+font-size:22px;
+margin-bottom:15px;
+}
+
+canvas{
+background:#222;
+border:3px solid #4f46e5;
+border-radius:15px;
+width:min(90vw,360px);
+height:min(90vw,360px);
+touch-action:none;
+}
+
+#controls{
+margin-top:20px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:10px;
+}
+
+.row{
+display:flex;
+gap:10px;
+}
+
+.control{
+width:70px;
+height:70px;
+border:none;
+border-radius:18px;
+background:#4f46e5;
+color:white;
+font-size:28px;
+}
+
+.bottom{
+display:flex;
+gap:10px;
+margin-top:20px;
+}
+
+.bottom button{
+padding:12px 18px;
+border:none;
+border-radius:12px;
+background:#4f46e5;
+color:white;
+font-size:16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🐍 Snake</h1>
+
+<div id="score">
+Score: 0
+</div>
+
+<canvas
+id="game"
+width="300"
+height="300">
+</canvas>
+
+<div id="controls">
+
+<button
+class="control"
+onclick="changeDir('UP')">
+⬆️
+</button>
+
+<div class="row">
+
+<button
+class="control"
+onclick="changeDir('LEFT')">
+⬅️
+</button>
+
+<button
+class="control"
+onclick="changeDir('DOWN')">
+⬇️
+</button>
+
+<button
+class="control"
+onclick="changeDir('RIGHT')">
+➡️
+</button>
+
+</div>
+
+</div>
+
+<div class="bottom">
+
+<button onclick="location.reload()">
+🔄 Restart
+</button>
+
+<button onclick="location.href='../index.html'">
+⬅ Back
+</button>
+
+</div>
+
+<script>
+  const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+const grid = 15;
+
+let snake = [
+    {x:150,y:150}
+];
+
+let direction = "RIGHT";
+
+let score = 0;
+let highScore = Number(localStorage.getItem("snakeHighScore")) || 0;
+
+document.getElementById("score").innerHTML =
+`Score: ${score}<br>High Score: ${highScore}`;
+
+let food = spawnFood();
+
+function spawnFood(){
+    return{
+        x:Math.floor(Math.random()*20)*grid,
+        y:Math.floor(Math.random()*20)*grid
+    };
+}
+
+function vibrate(ms){
+    if(navigator.vibrate){
+        navigator.vibrate(ms);
+    }
+}
+
+function changeDir(dir){
+
+    if(dir==="UP"&&direction!=="DOWN")direction="UP";
+    if(dir==="DOWN"&&direction!=="UP")direction="DOWN";
+    if(dir==="LEFT"&&direction!=="RIGHT")direction="LEFT";
+    if(dir==="RIGHT"&&direction!=="LEFT")direction="RIGHT";
+
+    vibrate(10);
+}
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="ArrowUp")changeDir("UP");
+    if(e.key==="ArrowDown")changeDir("DOWN");
+    if(e.key==="ArrowLeft")changeDir("LEFT");
+    if(e.key==="ArrowRight")changeDir("RIGHT");
+
+});
+
+// Swipe Controls
+
+let startX,startY;
+
+canvas.addEventListener("touchstart",(e)=>{
+    startX=e.touches[0].clientX;
+    startY=e.touches[0].clientY;
+});
+
+canvas.addEventListener("touchend",(e)=>{
+
+    let endX=e.changedTouches[0].clientX;
+    let endY=e.changedTouches[0].clientY;
+
+    let dx=endX-startX;
+    let dy=endY-startY;
+
+    if(Math.abs(dx)>Math.abs(dy)){
+        if(dx>20)changeDir("RIGHT");
+        if(dx<-20)changeDir("LEFT");
+    }else{
+        if(dy>20)changeDir("DOWN");
+        if(dy<-20)changeDir("UP");
+    }
+
+});
