@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GameHub</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>🎮 GameHub</h1>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="Search games..."
+    >
+
+    <button id="themeBtn">🌙</button>
+</header>
+
+<div class="filters">
+
+<button class="filter active" data-filter="all">
+All
+</button>
+
+<button class="filter" data-filter="arcade">
+Arcade
+</button>
+
+<button class="filter" data-filter="puzzle">
+Puzzle
+</button>
+
+</div>
+
+<main id="games">
+
+<a class="game arcade"
+href="games/snake.html">
+
+<div class="card">
+
+<h2>🐍 Snake</h2>
+
+<p>Classic snake game.</p>
+
+</div>
+
+</a>
+
+<a class="game puzzle"
+href="games/tictactoe.html">
+
+<div class="card">
+
+<h2>❌ Tic Tac Toe</h2>
+
+<p>Play against a friend.</p>
+
+</div>
+
+</a>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
